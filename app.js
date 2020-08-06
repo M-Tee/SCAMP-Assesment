@@ -31,6 +31,22 @@ router.route('/products')
   })
 });
 
+router.use('/products/:productId', (req, res, next) => {
+  Product.findById(req.params.productId, (err, product) =>{
+    if (err) {
+      return res.send(err);
+    }
+    if(product) {
+      req.product = product;
+      return next();
+    }
+    return res.sendStatus(404);
+  })
+})
+
+router.route('/products/:productId')
+.get((req, res) => res.json(req.product));
+
 app.use('/shoppingmart', router);
 
 app.listen(port, () => {
