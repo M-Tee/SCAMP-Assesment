@@ -1,8 +1,10 @@
 const express = require(`express`);
+const mongoose = require('mongoose');
 
 const app = express();
 const port = 8000;
 const router = express.Router();
+const db = mongoose.connect('mongodb://localhost/inventory');
 
 
 
