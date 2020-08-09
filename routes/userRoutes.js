@@ -22,12 +22,12 @@ function userRoutes(User) {
 
         user.save((err) => {
           if (err) {
-            return res.sendStatus(404);
+            return res.send(err);
           }
           return res.json(user);
         })
       } catch {
-        res.status(500).send()
+        res.status(400).send()
       }
     });
 
