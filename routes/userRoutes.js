@@ -31,25 +31,47 @@ function userRoutes(User) {
       }
     });
 
-  router.route('/users/login')
-    .post(async (req, res) => {
-      User.findOne({ email: req.body.email }, (err, user) => {
+    router.route('/users/:userId')
+    .delete((req, res) => {
+      User.findById(req.params.userId, (err, user) => {
         if (err) {
           return res.send(err);
         }
-        return user
+        user.remove((err) => {
+          if (err) {
+            return res.send(err);
+          }
+          return res.sendStatus(204);
+        })
       })
-      await bcyrpt.compare(req.body.password, user.password, (err, res) => {
-        if(err) {
-          res.send(err)
+
+    });
+
+  router.route('/users/login')
+    .post((req, res) => {
+      User.findOne({ email: req.body.email }, async (err, user) => {
+        if (err) {
+          return res.send(err);
         }
-        if (req.body.password != user.password) {
-          res.json({ success: false, message: 'passwords do not match' });
-        } else {
-          res.send('Log in Sucessfull')
+        if (await bcrypt.compare(req.body.password, user.password)) {
+          return res.send('Login sucessful')
         }
-      });
-     
+        return res.send('Wrong Password');
+      })
+
+
+
+      //   (err, res) => {
+      //   if(err) {
+      //     res.send(err)
+      //   }
+      //   if (req.body.password != user.password) {
+      //     res.json({ success: false, message: 'passwords do not match' });
+      //   } else {
+      //     res.send('Log in Sucessfull')
+      //   }
+      // });
+
       // try {
       //   await bcyrpt.compare(req.body.password, user.password)
       //   if(true){
@@ -77,7 +99,7 @@ function userRoutes(User) {
 
     })
 
-    return router;
-  }
+  return router;
+}
 
 module.exports = userRoutes;
