@@ -58,45 +58,6 @@ function userRoutes(User) {
         }
         return res.send('Wrong Password');
       })
-
-
-
-      //   (err, res) => {
-      //   if(err) {
-      //     res.send(err)
-      //   }
-      //   if (req.body.password != user.password) {
-      //     res.json({ success: false, message: 'passwords do not match' });
-      //   } else {
-      //     res.send('Log in Sucessfull')
-      //   }
-      // });
-
-      // try {
-      //   await bcyrpt.compare(req.body.password, user.password)
-      //   if(true){
-      //     res.send('Log in Sucessfull')
-      //   } else {
-      //     res.send('Incorrect Password')
-      //   }
-      // } catch {
-      //   res.status(400).send()
-      // }
-
-      // const user = User.find(user => User.email = req.body.email)
-      // if (user == null) {
-      //   return res.status(400).send('User not found')
-      // }
-      // try {
-      //   if (await bcyrpt.compare(req.body.password, user.password)) {
-      //     res.send('Log in Sucessfull')
-      //   } else {
-      //     res.send('Incorrect Password')
-      //   }
-      // } catch {
-      //   res.status(400).send()
-      // }
-
     })
 
   return router;
