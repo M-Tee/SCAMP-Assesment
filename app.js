@@ -5,11 +5,10 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 8000;
 const db = mongoose.connect('mongodb://localhost/inventory');
-const Product = require('./Models/productModel');
-const router = require('./routes/productRoutes')(Product);
 
-const User = require('./Models/userModel');
-const userRouter = require('./routes/userRoutes')(User);
+const router = require('./routes/productRoutes');
+
+const userRouter = require('./routes/userRoutes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
