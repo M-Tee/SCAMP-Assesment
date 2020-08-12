@@ -6,15 +6,14 @@ const app = express();
 const port = 8000;
 const db = mongoose.connect('mongodb://localhost/inventory');
 
-const router = require('./routes/productRoutes');
-
+const prodrouter = require('./routes/productRoutes');
 const userRouter = require('./routes/userRoutes');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.use('/shoppingmart', router);
+app.use('/shoppingmart', prodrouter);
 app.use(userRouter);
 
 app.listen(port, () => {
