@@ -15,9 +15,13 @@ npm install
 ```
 
 ## Usage
-
+Start Server
 ```sh
 npm run start
+```
+Start MongoDB
+```sh
+mongod
 ```
 
 ## Author
