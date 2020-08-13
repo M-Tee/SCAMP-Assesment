@@ -6,7 +6,11 @@
   </a>
 </p>
 
-> A backend application for a shoppingmart to manage inventory
+> A backend application for a shoppingmart to manage inventory. 
+## Prerequisites
+```sh
+MongoDB, Node.js, Express.js
+```
 
 ## Install
 
