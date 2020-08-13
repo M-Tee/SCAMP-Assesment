@@ -9,7 +9,7 @@
 > A backend application for a shoppingmart to manage inventory. 
 ## Prerequisites
 ```sh
-MongoDB, Node.js, Express.js
+MongoDB, Node Enviroment
 ```
 
 ## Install
