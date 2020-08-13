@@ -28,16 +28,19 @@ Start MongoDB
 mongod
 ```
 ## Testing the endpoints in postman
-    EndPoint   |   Url                             | Functionality
-    -----------|-----------------------------------|----------------------
-    GET        | /users/                           | Retrive users
-    POST       | /users/                           | User signup, add users to the database
-    POST       | /users/login                      | User log-in with valid username and password
-    GET        | /shoppingmart/products            | Retrieve products from a database
-    POST       | /shoppingmart/products            | Add a product to the database
-    DELETE     | /shoppingmart/products/:productId | Allow authenticated user to fetch all incidents created
-    PATCH      | /shoppingmart/products/:productId | Allow only an admin to change the status of an incident
-    PUT        | /shoppingmart/products/:productId | Replace a product
+ 
+    
+| EndPoint         |  Url            | Functionality  |
+| ------------- |---------------| ---------|
+| GET |/users/ |Retrive users|
+| POST |/users/ |User signup, add users to the database|
+|POST|//users/login  |User log-in with valid username and password|
+|GET|/shoppingmart/products |Retrieve products from a database|
+|POST|/shoppingmart/products|Add a product to the database|
+|DELETE |/shoppingmart/products/:productId| Allow authenticated user to fetch all incidents created|
+|PATCH|/shoppingmart/products/:productId|Allow only an admin to change the status of an incident|
+|PUT|/shoppingmart/products/:productId|Replace a product|
+
 
 ## Author
 
@@ -49,3 +52,4 @@ Give a ⭐️ if this project helped you!
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+
