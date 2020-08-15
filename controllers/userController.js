@@ -1,5 +1,7 @@
 const User = require('../Models/userModel');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('../config/config');
 
 const getUsers = (req, res) => {
   User.find((err, users) => {
@@ -47,8 +49,12 @@ const userLogin = (req, res) => {
       return res.send(err);
     }
     if (await bcrypt.compare(req.body.password, user.password)) {
-      // return res.send('Login sucessful')
-      return res.send(`Welcome back ${user.firstName}`)
+    
+      const token = jwt.sign({ id: user._id }, config.secret, {
+        expiresIn: 86400 // expires in 24 hours
+      });
+      return res.json({token});
+      // return res.send(`Welcome back   ${user.firstName}`)
     }
     return res.send('Wrong Password');
   })
