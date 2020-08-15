@@ -21,7 +21,7 @@ npm install
 ## Usage
 Start Server
 ```sh
-npm run start
+npm start
 ```
 Start MongoDB
 ```sh
