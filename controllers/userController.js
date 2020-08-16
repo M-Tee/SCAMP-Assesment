@@ -1,15 +1,32 @@
 const User = require('../Models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-// const config = require('../config/config');
+const config = require('../config/config');
 
 const getUsers = (req, res) => {
-  User.find((err, users) => {
-    if (err) {
-      return res.sendStatus(404);
-    }
-    return res.json(users)
+  let token = req.headers['x-access-token'];
+  if(!token){
+    return res.status(401).send({auth: false, message:'no token provided'});
+  }
+  jwt.verify(token, config.secret, function(err, users) {
+    if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+    
+    User.find((err, users) => {
+        if (err) {
+          return res.sendStatus(404);
+        }
+        return res.json(users)
+      });
   });
+
+
+  // User.find((err, users) => {
+  //   if (err) {
+  //     return res.sendStatus(404);
+  //   }
+  //   return res.json(users)
+  // });
+
 }
 const postUser = async (req, res) => {
   try {
@@ -48,14 +65,22 @@ const userLogin = (req, res) => {
     if (err) {
       return res.send(err);
     }
+    if(!user){
+      return res.sendStatus(404);
+    }
+
     if (await bcrypt.compare(req.body.password, user.password)) {
 
-      const secret = require('crypto').randomBytes(48).toString('hex');
-
-      const token = jwt.sign({ id: user._id }, secret, {
+      const token = jwt.sign({ id: user._id }, config.secret, {
         expiresIn: 86400 
       });
-      return res.json({token});
+
+      // token = await res.json()
+      // localStorage.setItem('token', token);
+      res.status(200).send({ auth: true, token: token });
+
+      // return res.json({token});
+      // return res.send(localStorage.getItem("token));
       // return res.send(`Welcome back   ${user.firstName}`)
     }
     return res.send('Wrong Password');
