@@ -53,7 +53,7 @@ const deleteUser = (req, res) => {
     }
     user.remove((err) => {
       if (err) {
-        return res.send(err);
+        return res.status(500).send(err);
       }
       return res.sendStatus(204);
     })
@@ -83,7 +83,7 @@ const userLogin = (req, res) => {
       // return res.send(localStorage.getItem("token));
       // return res.send(`Welcome back   ${user.firstName}`)
     }
-    return res.send('Wrong Password');
+    return res.status(401).send('Wrong Password');
   })
 }
 
