@@ -2,13 +2,15 @@ const User = require('../Models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+require('dotenv').config();
+const secret = process.env.SECRET
 
 const getUsers = (req, res) => {
   let token = req.headers['x-access-token'];
   if(!token){
     return res.status(401).send({auth: false, message:'no token provided'});
   }
-  jwt.verify(token, config.secret, function(err, users) {
+  jwt.verify(token, secret, function(err, users) {
     if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
     
     User.find((err, users) => {
@@ -71,7 +73,7 @@ const userLogin = (req, res) => {
 
     if (await bcrypt.compare(req.body.password, user.password)) {
 
-      const token = jwt.sign({ id: user._id }, config.secret, {
+      const token = jwt.sign({ id: user._id }, secret, {
         expiresIn: 86400 
       });
 
