@@ -15,24 +15,6 @@ const getUsers = (req, res) => {
   });
 }
 
-
-// const getUsers = (req, res) => {
-//   let token = req.headers['x-access-token'];
-//   if(!token){
-//     return res.status(401).send('no token provided');
-//   }
-//   jwt.verify(token, secret, function(err, users) {
-//     if (err) return res.status(500).send('Failed to authenticate token.');
-
-//     User.find((err, users) => {
-//         if (err) {
-//           return res.sendStatus(404);
-//         }
-//         return res.json(users)
-//       });
-//   });
-// }
-
 const postUser = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
@@ -78,10 +60,6 @@ const userLogin = (req, res) => {
 
       const token = jwt.sign({id: user._id }, secret, {expiresIn: 86400});
       return res.status(200).send(token);
-
-      // return res.json({token});
-      // return res.send(localStorage.getItem("token));
-      // return res.send(`Welcome back   ${user.firstName}`)
     }
     return res.status(401).send('Wrong Password');
   })
