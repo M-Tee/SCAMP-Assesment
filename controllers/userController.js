@@ -5,31 +5,34 @@ const config = require('../config/config');
 require('dotenv').config();
 const secret = process.env.SECRET
 
+
 const getUsers = (req, res) => {
-  let token = req.headers['x-access-token'];
-  if(!token){
-    return res.status(401).send({auth: false, message:'no token provided'});
-  }
-  jwt.verify(token, secret, function(err, users) {
-    if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
-    
-    User.find((err, users) => {
-        if (err) {
-          return res.sendStatus(404);
-        }
-        return res.json(users)
-      });
+  User.find((err, users) => {
+    if (err) {
+      return res.sendStatus(404);
+    }
+    return res.json(users)
   });
-
-
-  // User.find((err, users) => {
-  //   if (err) {
-  //     return res.sendStatus(404);
-  //   }
-  //   return res.json(users)
-  // });
-
 }
+
+
+// const getUsers = (req, res) => {
+//   let token = req.headers['x-access-token'];
+//   if(!token){
+//     return res.status(401).send('no token provided');
+//   }
+//   jwt.verify(token, secret, function(err, users) {
+//     if (err) return res.status(500).send('Failed to authenticate token.');
+
+//     User.find((err, users) => {
+//         if (err) {
+//           return res.sendStatus(404);
+//         }
+//         return res.json(users)
+//       });
+//   });
+// }
+
 const postUser = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
@@ -67,19 +70,14 @@ const userLogin = (req, res) => {
     if (err) {
       return res.send(err);
     }
-    if(!user){
+    if (!user) {
       return res.sendStatus(404);
     }
 
     if (await bcrypt.compare(req.body.password, user.password)) {
 
-      const token = jwt.sign({ id: user._id }, secret, {
-        expiresIn: 86400 
-      });
-
-      // token = await res.json()
-      // localStorage.setItem('token', token);
-      res.status(200).send({ auth: true, token: token });
+      const token = jwt.sign({id: user._id }, secret, {expiresIn: 86400});
+      return res.status(200).send(token);
 
       // return res.json({token});
       // return res.send(localStorage.getItem("token));
