@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-app.use('/shoppingmart', prodrouter);
+app.use(prodrouter);
 app.use(userRouter);
 
 app.listen(port, () => {
