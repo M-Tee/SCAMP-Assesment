@@ -32,9 +32,12 @@ mongod
     
 | EndPoint         |  Url            | Functionality  |
 | ------------- |---------------| ---------|
-| GET |/users/ |Retrive users|
-| POST |/users/ |User signup, add users to the database|
-|POST|/users/login  |User log-in with valid username and password|
+| GET |/users |Retrive users: Requires a valid token passed through x-access-token to access|
+| POST |/signup |User signup, add users to the database|
+|POST|/login  |Search user by email, validates password and returns a token|
+|GET|/users/:userId  |Get a specific user by ID|
+|PATCH|/users/:userId  |Update user details|
+|DELETE|/users/:userId  |Delete a user|
 |GET|/products |Retrieve products from a database|
 |POST|/products|Add a product to the database|
 |DELETE |/products/:productId| Allow authenticated user to fetch all incidents created|
