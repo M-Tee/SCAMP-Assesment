@@ -31,7 +31,7 @@ const getUsers = (req, res) => {
   });
 }
 
-const postUser = async (req, res) => {
+const addUser = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt();
     req.body.password = await bcrypt.hash(req.body.password, salt)
@@ -107,7 +107,7 @@ const deleteUser = (req, res) => {
 module.exports = {
   userLogin,
   getUsers,
-  postUser,
+  addUser,
   findUser,
   getUser,
   updateUser,
