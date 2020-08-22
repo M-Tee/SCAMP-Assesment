@@ -15,12 +15,23 @@ const userLogin = (req, res) => {
 
     if (await bcrypt.compare(req.body.password, user.password)) {
 
-      const token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
-      return res.status(200).send(token);
+      // const token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
+      user.token = await jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
+
+      user.save((err) => {
+        if (err) {
+          return res.send(err);
+        }
+      })
+      return res.status(200).send(user);
+
     }
     return res.status(401).send('Wrong Password');
   })
 }
+
+
+
 
 const getUsers = (req, res) => {
   User.find((err, users) => {
@@ -96,16 +107,17 @@ const updateUser = (req, res) => {
 }
 
 const deleteUser = (req, res) => {
-    req.user.remove((err) => {
-      if (err) {
-        return res.status(500).send(err);
-      }
-      return res.status(204).send('Sucessfully deleted');
-    })
+  req.user.remove((err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    return res.status(204).send('Sucessfully deleted');
+  })
 }
 
 module.exports = {
   userLogin,
+  verifyToken,
   getUsers,
   addUser,
   findUser,
