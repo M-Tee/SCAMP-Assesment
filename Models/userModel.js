@@ -21,6 +21,14 @@ const userModel = new Schema(
       type: String,
       required: true
     },
+    role: {
+      type: String,
+      default: 'basic',
+      enum: ["basic", "admin"]
+    },
+    token: {
+      type: String
+    }
   }
 );
 
