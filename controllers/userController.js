@@ -30,7 +30,22 @@ const userLogin = (req, res) => {
   })
 }
 
+const verifyToken = (req, res, next) => {
+  let token = req.headers['x-access-token']
 
+  if(!token){
+    return res.status(401).send('no token provided')
+  }
+  jwt.verify(token, secret, (err, user) => {
+    if(err) {
+      return res.status(403).send('Failed to authenticate token.')
+    }
+    if(user){
+      return next()
+    }
+    return res.sendStatus(500)
+  })
+}
 
 
 const getUsers = (req, res) => {
