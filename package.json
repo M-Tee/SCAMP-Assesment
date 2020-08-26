@@ -35,5 +35,8 @@
   },
   "engines": {
     "node": "v12.13.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
   }
 }
