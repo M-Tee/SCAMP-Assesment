@@ -8,14 +8,15 @@ const morgan = require('morgan');
 const app = express();
 const port = process.env.PORT || 8000;
 const mongoDB = process.env.MONGODB_URI
+const prodrouter = require('./routes/productRoutes');
+const userRouter = require('./routes/userRoutes');
+
 // const db = mongoose.connect('mongodb://localhost/inventory');
 mongoose
-  .connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(mongoDB || 'mongodb://localhost/inventory', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-const prodrouter = require('./routes/productRoutes');
-const userRouter = require('./routes/userRoutes');
 
 app
   .use(morgan('dev'))
