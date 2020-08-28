@@ -9,7 +9,7 @@
 > A backend application for a shoppingmart to manage inventory. 
 ## Prerequisites
 ```sh
-MongoDB, Node Enviroment
+ Node Enviroment
 ```
 
 ## Install
@@ -22,10 +22,6 @@ npm install
 Start Server
 ```sh
 npm run dev
-```
-Start MongoDB
-```sh
-mongod
 ```
 ## Testing the endpoints in postman
  
