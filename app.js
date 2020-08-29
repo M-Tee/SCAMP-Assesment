@@ -13,7 +13,11 @@ const userRouter = require('./routes/userRoutes');
 
 // const db = mongoose.connect('mongodb://localhost/inventory');
 mongoose
-  .connect(mongoDB || 'mongodb://localhost/inventory', { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(mongoDB || 'mongodb://localhost/inventory', { 
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true 
+  })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
