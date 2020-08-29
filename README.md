@@ -19,12 +19,12 @@ npm install
 ```
 
 ## Usage
-Start Server
+Start server (development mode)
 ```sh
 npm run dev
 ```
 ## Testing the endpoints in postman
- 
+Make requests to https://polar-scrubland-30402.herokuapp.com/endpoint
     
 | EndPoint         |  Url            | Functionality  |
 | ------------- |---------------| ---------|
