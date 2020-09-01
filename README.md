@@ -7,11 +7,6 @@
 </p>
 
 > A backend application for a shoppingmart to manage inventory. 
-## Prerequisites
-```sh
- Node Enviroment
-```
-
 ## Install
 
 ```sh
